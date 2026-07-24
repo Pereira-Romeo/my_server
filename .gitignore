@@ -1,0 +1,5 @@
+.build/
+myhttp
+*.log
+.local/
+*.bin
