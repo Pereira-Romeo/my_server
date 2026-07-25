@@ -39,7 +39,7 @@ namespace my {
              */
             Error(std::ostringstream oss, int val, bool addErrno):Error(oss.str(), val, addErrno) {};
 
-            std::string what() {return _msg;};
+            const char* what() const noexcept override {return _msg.c_str();};
             int value() {return _val;};
 
         protected:
