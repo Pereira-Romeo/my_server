@@ -24,3 +24,8 @@
 #define CSWARN CSBOLD CSPURPLE // used for "WARN" something
 #define CSERR CSBOLD CSRED // used for "ERR" something
 #define CSRB CSRESET CSBOLD //reset colors and set bold
+
+#define CSINFOL CSINFO "INFO" CSRB ": " CSRESET //INFO: (in colors) used to display information
+#define CSWARNL CSWARN "WARN" CSRB ": " CSRESET //WARN: (in colors) used to display warnings / recovered errors
+#define CSERRL CSERR "ERR" CSRB ": " CSRESET //ERR: (in colors) used to display unrecoverale errors (doesn't necessarly mean program wide fatal error)
+#define CSFATERR CSERR "FATAL ERROR" CSRB ": " CSRESET //FATAL ERROR: (in colors) used to display unrecoverale, program wide errors

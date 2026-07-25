@@ -40,10 +40,10 @@ int main(int ac, char **av)
         server.run();
         return 0;
     } catch (my::Error& e) {
-        std::cerr << CSERR "Fatal error" CSRB ": " CSRESET  << e.what() << std::endl;
+        std::cerr << CSFATERR << e.what() << std::endl;
         return e.value();
     } catch (std::exception& e) {
-        std::cerr << CSERR "Fatal error" CSRB ": " CSRESET << e.what() << "\nLast registered errno(" << errno << "): " << ((errno != 0) ? std::strerror(errno) : "No registered errno.") << std::endl;
+        std::cerr << CSFATERR << e.what() << "\nLast registered errno(" << errno << "): " << ((errno != 0) ? std::strerror(errno) : "No registered errno.") << std::endl;
     } catch (...) {
         std::cerr << CSERR "Caught error" CSRB ": " CSRESET << ((errno != 0) ? std::strerror(errno) : "No registered errno.") << std::endl;
     }
