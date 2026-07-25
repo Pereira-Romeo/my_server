@@ -6,6 +6,7 @@
 */
 
 #include "server/Server.hpp"
+#include "ColorsShortcut.hpp"
 
 
 namespace myhttp
@@ -46,7 +47,7 @@ int Server::sinHandler()
 
     if (cmd == "help") {
         for (auto& _cmd : cmds) {
-            std::cout << "    \033[1m" << std::left << std::setw(12) << _cmd.first << std::setw(0) << "\033[0m" + _cmd.second.description << "\n";
+            std::cout << CSBOLD << std::left << std::setw(12) << _cmd.first << std::setw(0) << CSRESET << _cmd.second.description << "\n";
         }
         std::cout << std::endl;
     } else if (cmd.size() > 0) {
@@ -55,7 +56,7 @@ int Server::sinHandler()
             std::cerr << "Unknown command '" + cmd  + "'." << std::endl;
         } else {
             int ret = it->second.func(args);
-            std::cout << "\033[34;1m$?:\033[0m " << ret << std::endl;
+            std::cout << CSINFO "$?" CSRB ": " CSRESET << ret << std::endl;
         }
     }
     return 1;
