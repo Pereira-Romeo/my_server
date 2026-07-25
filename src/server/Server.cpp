@@ -6,6 +6,7 @@
 */
 
 #include "server/Server.hpp"
+#include "ColorsShortcut.hpp"
 
 namespace myhttp
 {
@@ -75,11 +76,6 @@ Server::~Server()
 
 void Server::run()
 {
-    sockaddr_in addr = {.sin_family = AF_INET,
-    .sin_port = htons(6969),
-    .sin_addr = {.s_addr = INADDR_ANY}};
-    Client cli(addr, 69, [this](int fd) -> pollfd& {return getPfd(fd);});
-
     while (_run) {
         int events = poll(_pfds.data(), _pfds.size(), -1);
 
@@ -100,34 +96,54 @@ int Server::listenSocketHandler() noexcept
         return 0;
     }
 
-    //safety check
-    bool initNinserted = false;
+    sockaddr_in newClientAddr;
+    socklen_t scklen = sizeof(newClientAddr);
+    int newSock = accept(_pfds[2].fd, (sockaddr *)&newClientAddr, &scklen);
 
-    try {
-        // sockaddr_in newCli;
-        // socklen_t scklen = sizeof(newCli);
-        // int newSock = accept(_pfds[1].fd, (sockaddr *)&newCli, &scklen);
-
-        // if (newSock == -1) {
-        //     std::cerr << "Failed to accept incoming connection." << std::endl;
-        // } else {
-        //     instert pfd
-        //     _pfds.push_back({newSock, POLLOUT | POLLIN | POLLHUP, 0});
-        //     insert client
-        //     Client cli(newCli, _pfds.back());
-        //     cli.addOutput("WELCOME\n");
-        //     _clients.insert(std::pair<int, Client>(newSock, cli));
-        //     initNinserted = true;
-        //     std::cout << "Accepted new client(" << newSock << ", " << _pfds.size() - 1 << "): " << _clients.at(newSock).getNetInfo() << "\n";
-        // }
-    } catch (...) {
-        std::cerr << "Failed to accept incoming connection." << std::endl;
-        if (initNinserted) {
-            std::cerr << "Killing corrupted client..." << std::endl;
-            // hangUp();
+    if (newSock == -1) {
+        std::cerr << CSWARNL "Failed to accept incoming connection." << std::endl;
+    } else {
+        if (insertNewClient(newSock, newClientAddr)) { //&& debug lvl = info
+            std::cout << CSINFOL "accepted new client: " << _clients.at(newSock) << std::endl;
+            //handshake
+        } else {
+            close(newSock);
         }
     }
     return 1;
+}
+
+bool Server::insertNewClient(int fd, const sockaddr_in& addr)
+{
+    int stage = 0;
+
+    try {
+        _clients.emplace(std::piecewise_construct, std::forward_as_tuple(fd),
+            std::forward_as_tuple(
+                addr, fd, [this](int __fd) -> pollfd& {return getPfd(__fd);})
+        ); //ugly line so only one client ever gets created :)
+        stage = 1;
+        _pfdIndex[fd] = _pfds.size();
+        stage = 2;
+        _pfds.push_back({fd, POLLIN | POLLHUP, 0});
+        return true;
+
+    } catch (std::exception& e) {
+        std::cerr << CSWARNL "new client insertion failed! Reason: " << e.what() << "." << std::endl;
+    } catch (...) {
+        std::cerr << CSWARNL "new client insertion failed! Unknown reason." << std::endl;
+    }
+    //error recovery
+    switch (stage) {
+        case 2:
+            _pfdIndex.erase(fd);
+            [[fallthrough]]; //if stage 2 then stage 1 was reached
+        case 1:
+            _clients.erase(fd);
+        default:
+        break;
+    }
+    return false;
 }
 
 
