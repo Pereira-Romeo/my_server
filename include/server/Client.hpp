@@ -33,6 +33,36 @@ namespace myhttp
             ClientType type = ClientType::none;
 
 
+            //===== buffer management ============================//
+
+            /** input buffer
+             * @note the input buffer should be used to buffer incomplete commands
+             * @note so when you receive something from the client, the real input of the client is:
+             * @note _inBuffer + received text
+             */
+            std::string _inBuffer;
+
+            /** add output to output buffer
+             * @note make sure to add the ending \\n
+             */
+            void addOutput(std::string out);
+
+            /** add output to output buffer
+             * @note make sure to add the ending \\n
+             */
+            void addOutput(std::ostringstream out);
+
+            /** add output to the front of output buffer
+             * use this to add back an output that was partially written
+             */
+            void pushOutput(std::string out);
+
+            /** used to retrieve current output until the last \\n
+             * @returns string
+             */
+            std::string getOutput();
+
+
             //===== Misc =========================================//
 
             /** get client's network information */
@@ -50,6 +80,13 @@ namespace myhttp
             //server's public method to retrieve your pfd
             std::function<pollfd& (int)> _getPfd;
 
+            /** output buffer */
+            std::string _outBuffer;
+
+            /** activates client's pollout if there is a complete output
+             * @note a complete output is any output ending by \\n
+             */
+            void polloutActivator();
     };
 } // namespace myhttp
 

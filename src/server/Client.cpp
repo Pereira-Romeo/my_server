@@ -18,7 +18,53 @@ namespace myhttp
 Client::Client(sockaddr_in info, int fd, std::function<pollfd& (int)> getPfd)
 : _addr(info), _fd(fd), _getPfd(getPfd)
 {
-    std::cout << "Client " << *this << " created." << std::endl;
+}
+
+
+//================= buffer management ============================//
+
+void Client::addOutput(std::string out)
+{
+    std::istringstream iss(out);
+    std::string line;
+    while (std::getline(iss, line)) {
+        if (line.find_first_not_of(" \t\r") == std::string::npos)
+            continue;
+        _outBuffer.append(line + '\n');
+    }
+    polloutActivator();
+}
+
+void Client::addOutput(std::ostringstream out)
+{
+    addOutput(out.str());
+}
+
+void Client::pushOutput(std::string out)
+{
+    out.append(_outBuffer);
+    _outBuffer = out;
+}
+
+std::string Client::getOutput()
+{
+    std::string out("");
+    size_t eolc = _outBuffer.find_last_of('\n');
+
+    if (eolc != std::string::npos) {
+        out.append(_outBuffer.begin(), _outBuffer.begin() + eolc + 1);
+        _outBuffer.erase(_outBuffer.begin(), _outBuffer.begin() + eolc + 1);
+    }
+    polloutActivator();
+    return out;
+}
+
+void Client::polloutActivator()
+{
+    if (_outBuffer.find('\n') != std::string::npos)
+        _getPfd(_fd).events |= POLLOUT;
+    else
+        _getPfd(_fd).events &= ~POLLOUT;
 }
 
 
