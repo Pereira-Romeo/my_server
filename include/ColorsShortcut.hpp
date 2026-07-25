@@ -1,0 +1,26 @@
+/*
+** Deb PROJECT, 2026
+** colors everywhere :D
+** File description:
+** ColorsShortcut
+*/
+
+#pragma once
+
+#define CSBOLD "\033[1m" //bold text
+#define CSPURPLE "\033[38;5;165m" //sexiest purple known to man
+#define CSRED "\033[38;5;196m" //reddest red
+#define CSFUSCHIA "\033[38;5;201m" //sexy pinkish purple
+#define CSBLUE1 "\033[38;5;33m" //deep dark blu
+#define CSBLUE2 "\033[38;5;45m" //brightest true blu
+#define CSCYAN "\033[38;5;51m" //Cyan
+#define CSTEAL "\033[38;5;49m" //is it blu ? is it green ?
+#define CSGREEN1 "\033[38;5;34m" //deep dark green
+#define CSGREEN2 "\033[38;5;46m" //brightest green
+
+#define CSRESET "\033[0m" //no more color :(
+
+#define CSINFO CSBOLD CSBLUE1 //used for "INFO" something
+#define CSWARN CSBOLD CSPURPLE // used for "WARN" something
+#define CSERR CSBOLD CSRED // used for "ERR" something
+#define CSRB CSRESET CSBOLD //reset colors and set bold

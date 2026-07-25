@@ -6,6 +6,7 @@
 */
 
 #include "server/Server.hpp"
+#include "ColorsShortcut.hpp"
 
 int main(int ac, char **av)
 {
@@ -39,12 +40,12 @@ int main(int ac, char **av)
         server.run();
         return 0;
     } catch (my::Error& e) {
-        std::cerr << "\033[1;31mFatal error\033[0m: " + e.what() << std::endl;
+        std::cerr << CSERR "Fatal error" CSRB ": " CSRESET  << e.what() << std::endl;
         return e.value();
     } catch (std::exception& e) {
-        std::cerr << "\033[1;31mFatal error\033[0m: " << e.what() << "\nLast registered errno(" << errno << "): " << ((errno != 0) ? std::strerror(errno) : "No registered errno.") << std::endl;
+        std::cerr << CSERR "Fatal error" CSRB ": " CSRESET << e.what() << "\nLast registered errno(" << errno << "): " << ((errno != 0) ? std::strerror(errno) : "No registered errno.") << std::endl;
     } catch (...) {
-        std::cerr << "\033[1;31mCaught error\033[0m: " << ((errno != 0) ? std::strerror(errno) : "No registered errno.") << std::endl;
+        std::cerr << CSERR "Caught error" CSRB ": " CSRESET << ((errno != 0) ? std::strerror(errno) : "No registered errno.") << std::endl;
     }
     return 0;
 }
