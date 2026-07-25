@@ -25,4 +25,3 @@ namespace myhttp
 
     std::ostream& operator<<(std::ostream& out, const ClientType& type);
 } // namespace myhttp
-

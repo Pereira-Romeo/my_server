@@ -19,4 +19,3 @@ std::ostream& operator<<(std::ostream& out, const ClientType& type)
     return out;
 }
 } // namespace myhttp
-

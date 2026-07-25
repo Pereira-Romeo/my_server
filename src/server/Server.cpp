@@ -272,4 +272,3 @@ std::ostream& operator<<(std::ostream& out, const myhttp::Server& server)
 }
 
 } // namespace myhttp
-

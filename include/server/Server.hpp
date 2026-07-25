@@ -139,5 +139,3 @@ namespace myhttp
             int listCmd(std::deque<std::string> args);
     };
 } // namespace myhttp
-
-
