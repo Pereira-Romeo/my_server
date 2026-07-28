@@ -79,19 +79,19 @@ namespace myhttp
              */
             int listenSocketHandler() noexcept;
 
-            /** handle client sockets (and events)
-             * @param n the number of poll events to complete
-             * @returns the number of events done
-             */
-            int socketsHandler(int n);
-
             /** add a new client to the server
              * @param fd the socket fd of the client
              * @param addr the network info of the client (filled by the accept call)
              * @return true if the client was successfully added. false if failed
              * @note this function does not handle any handshake
              */
-            bool insertNewClient(int fd, const sockaddr_in& addr);
+            bool insertNewClient(int fd, const sockaddr_in& addr) noexcept;
+
+            /** handle client sockets (and events)
+             * @param n the number of poll events to complete
+             * @returns the number of events done
+             */
+            int socketsHandler(int n);
 
 
             //===== cli interface ================================//

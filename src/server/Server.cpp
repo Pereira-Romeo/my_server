@@ -66,7 +66,7 @@ Server::Server(const std::string& port)
 
 Server::~Server()
 {
-    std::cout << "Shutting down server..." << std::endl;
+    std::cout << CSWARNL "Shutting down server..." << std::endl;
     for (pollfd pfd : _pfds) {
         close(pfd.fd);
     }
@@ -77,14 +77,16 @@ Server::~Server()
 void Server::run()
 {
     while (_run) {
-        int events = poll(_pfds.data(), _pfds.size(), -1);
+        int n = poll(_pfds.data(), _pfds.size(), -1); //number of events
 
-        if (events > 0 && _run)
-            events -= sigHandler();
-        if (events > 0 && _run)
-            events -= sinHandler();
-        if (events > 0 && _run)
-            events -= listenSocketHandler();
+        if (n > 0 && _run)
+            n -= sigHandler();
+        if (n > 0 && _run)
+            n -= sinHandler();
+        if (n > 0 && _run)
+            n -= listenSocketHandler();
+        // if (n > 0 && _run)
+        //     n -= socketsHandler(n);
     }
 }
 
@@ -113,7 +115,7 @@ int Server::listenSocketHandler() noexcept
     return 1;
 }
 
-bool Server::insertNewClient(int fd, const sockaddr_in& addr)
+bool Server::insertNewClient(int fd, const sockaddr_in& addr) noexcept
 {
     int stage = 0;
 
