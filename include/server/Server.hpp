@@ -73,6 +73,7 @@ namespace myhttp
 
 
             //===== socket Handling ==============================//
+            //in Server.cpp
 
             /** handle listen socket (new connections)
              * @returns the number of events done (0 or 1)
@@ -87,11 +88,13 @@ namespace myhttp
              */
             bool insertNewClient(int fd, const sockaddr_in& addr) noexcept;
 
+            //from here is file ServerSocketHandler.cpp
+
             /** handle client sockets (and events)
              * @param n the number of poll events to complete
              * @returns the number of events done
              */
-            int socketsHandler(int n);
+            int socketsHandler(int n) noexcept;
 
 
             //===== cli interface ================================//
@@ -100,7 +103,7 @@ namespace myhttp
             /** handle terminal input
              * @returns the number of events done (0 or 1)
              */
-            int sinHandler();
+            int sinHandler() noexcept;
 
 
             //===== signals ======================================//
@@ -113,7 +116,7 @@ namespace myhttp
             /** signal handler
              * @returns the number of events done
              */
-            int sigHandler();
+            int sigHandler() noexcept;
 
 
             //===== read ===========================================//

@@ -194,7 +194,7 @@ int Server::makeSignalFd(int signals)
     return _sigIntFd;
 }
 
-int Server::sigHandler()
+int Server::sigHandler() noexcept
 {
     if (!(_pfds[0].revents & POLLIN)) {
         return 0;
@@ -208,10 +208,9 @@ int Server::sigHandler()
             close(_pfds[0].fd);
             _pfds[0] = _sigpfd;
             std::cerr << "Successfully reconstructed signalFd." << std::endl;
-        } catch (...) {
-            std::cerr << "Failure to reconstruct signalFd, skipping..." << std::endl;
+        } catch (const std::exception& e) {
+            std::cerr << "Failure to reconstruct signalFd," << e.what() << ", skipping..." << std::endl;
         }
-        return 1;
     } else {
         if (ssi.ssi_signo == SIGINT) {
             _run = false;
