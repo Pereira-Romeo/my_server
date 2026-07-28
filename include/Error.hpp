@@ -1,6 +1,6 @@
 /*
-** EPITECH PROJECT, 2026
-** arcade
+** Deb PROJECT, 2026
+** my namespace
 ** File description:
 ** Error
 */
