@@ -25,10 +25,10 @@ SRC := $(filter-out $(EXECSRC), $(wildcard $(SRCDIR)/*$(EXT)))
 SRC := $(filter-out $(EXECSRC), $(wildcard $(SRCDIR)/server/*$(EXT)))
 
 #criterion test sources
-TESTSRC = $(wildcard $(TESTDIR)/*$(EXT))
-TESTSRC += $(wildcard $(TESTDIR)/argHandler_class/*$(EXT))
-TESTSNAME = tests.bin
 TESTDIR = tests
+TESTSRC = $(wildcard $(TESTDIR)/*$(EXT))
+TESTSRC += $(wildcard $(TESTDIR)/error_class/*$(EXT))
+TESTSNAME = tests.bin
 
 ##================================================================##
 ##================= Object Files ===================================

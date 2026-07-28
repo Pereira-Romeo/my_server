@@ -1,8 +1,8 @@
 /*
 ** Deb PROJECT, 2026
-** colors everywhere :D
+** my namespace
 ** File description:
-** ColorsShortcut
+** colors everywhere :D
 */
 
 #pragma once
