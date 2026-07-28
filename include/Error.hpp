@@ -17,33 +17,23 @@ namespace my {
         public:
             /** Error class constructor
              * @param msg error message
-             * @param addErrno set to true if you want to append the errno message to your message
+             * @param _errno set this to errno if you want the errno message to be added to your message, defaults to 0 (no message added)
+             * @param val value you want this error to give, defaults to 84
              */
-            Error(std::string msg, bool addErrno):_msg(msg)
-                {if (errno != 0 && addErrno) {_msg.append(" | last recorded errno: " + std::string(std::strerror(errno)));};};
+            Error(std::string msg, int _errno = 0, int val = 84):_msg(msg), _val(val)
+                {if (_errno != 0) {_msg.append(" | last recorded errno: " + std::string(std::strerror(_errno)));};};
             /** Error class constructor
-             * @param oss ostringstream, essentially a string but easier to use :)
-             * @param addErrno set to true if you want to append the errno message to your message
+             * @param oss error message (as a stream)
+             * @param _errno set this to errno if you want the errno message to be added to your message, defaults to 0 (no message added)
+             * @param val value you want this error to give, defaults to 84
              */
-            Error(std::ostringstream oss, bool addErrno):Error(oss.str(), addErrno) {};
-            /** Error class constructor
-             * @param msg error message
-             * @param val value you want this error to give
-             * @param addErrno set to true if you want to append the errno message to your message
-             */
-            Error(std::string msg, int val, bool addErrno):Error(msg, addErrno) {_val = val;};
-            /** Error class constructor
-             * @param oss ostringstream, essentially a string but easier to use :)
-             * @param val value you want this error to give
-             * @param addErrno set to true if you want to append the errno message to your message
-             */
-            Error(std::ostringstream oss, int val, bool addErrno):Error(oss.str(), val, addErrno) {};
+            Error(std::ostringstream oss, int _errno = 0, int val = 84):Error(oss.str(), _errno, val) {};
 
             const char* what() const noexcept override {return _msg.c_str();};
-            int value() {return _val;};
+            int value() const {return _val;};
 
         protected:
-            std::string _msg = "";
-            int _val = 84;
+            std::string _msg;
+            int _val;
     };
 }

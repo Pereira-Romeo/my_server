@@ -10,7 +10,7 @@
 
 int main(int ac, char **av)
 {
-        try {
+    try {
         //arg handling
         // my::ArgHandler args(argc, argv);
         // if (args.help())
@@ -43,9 +43,9 @@ int main(int ac, char **av)
         std::cerr << CSFATERR << e.what() << std::endl;
         return e.value();
     } catch (std::exception& e) {
-        std::cerr << CSFATERR << e.what() << "\nLast registered errno(" << errno << "): " << ((errno != 0) ? std::strerror(errno) : "No registered errno.") << std::endl;
+        std::cerr << CSFATERR << e.what() << " | Last registered errno(" << errno << "): " << ((errno != 0) ? std::strerror(errno) : "No registered errno.") << std::endl;
     } catch (...) {
-        std::cerr << CSERR "Caught error" CSRB ": " CSRESET << ((errno != 0) ? std::strerror(errno) : "No registered errno.") << std::endl;
+        std::cerr << CSERR "Caught error" CSRB ": " CSRESET << "Unknown | last registered errno(" << errno << "): " << ((errno != 0) ? std::strerror(errno) : "No registered errno.") << std::endl;
     }
     return 0;
 }
