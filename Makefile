@@ -27,7 +27,7 @@ SRC := $(filter-out $(EXECSRC), $(wildcard $(SRCDIR)/server/*$(EXT)))
 #criterion test sources
 TESTDIR = tests
 TESTSRC = $(wildcard $(TESTDIR)/*$(EXT))
-TESTSRC += $(wildcard $(TESTDIR)/argHandler_class/*$(EXT))
+TESTSRC += $(wildcard $(TESTDIR)/error_class/*$(EXT))
 TESTSNAME = tests.bin
 
 ##================================================================##
