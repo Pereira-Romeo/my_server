@@ -23,6 +23,18 @@ Client::Client(sockaddr_in info, int fd, std::function<pollfd& (int)> getPfd)
 
 //================= buffer management ============================//
 
+std::string Client::getInput()
+{
+    std::string tmp(_inBuffer);
+    _inBuffer.clear();
+    return tmp;
+}
+
+void Client::saveInput(std::string in)
+{
+    _inBuffer.append(in);
+}
+
 void Client::addOutput(std::string out)
 {
     std::istringstream iss(out);
@@ -75,7 +87,7 @@ sockaddr_in Client::getNetInfo() const noexcept
     return _addr;
 }
 
-int Client::getFd() const noexcept
+int Client::fd() const noexcept
 {
     return _fd;
 }

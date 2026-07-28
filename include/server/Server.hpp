@@ -96,6 +96,18 @@ namespace myhttp
              */
             int socketsHandler(int n) noexcept;
 
+            /** handle client pollin
+             * @param ci reference to the client's index inside pfd
+             * @note client index will change if something requires the deletion of the client
+             * @note (for example reading an input of size 0 is equivalent to a pollhup)
+             */
+            void clientPollin(size_t& ci, Client& client);
+
+            /** handle client pollout
+             * @param ci reference to the client's index inside pfd
+             * @note client index will change if something requires the deletion of the client
+             */
+            void clientPollout(size_t& ci, Client& client);
 
             //===== cli interface ================================//
             //see also section "cli commands"

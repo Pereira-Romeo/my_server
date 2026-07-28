@@ -35,12 +35,20 @@ namespace myhttp
 
             //===== buffer management ============================//
 
-            /** input buffer
+            /** get client's saved input
+             * @note the input buffer should be used to buffer incomplete commands
+             * @note so when you receive something from the client, the real input of the client is:
+             * @note _inBuffer + received text
+             * @returns string
+             */
+            std::string getInput();
+
+            /** save to the back of client's input
              * @note the input buffer should be used to buffer incomplete commands
              * @note so when you receive something from the client, the real input of the client is:
              * @note _inBuffer + received text
              */
-            std::string _inBuffer;
+            void saveInput(std::string in);
 
             /** add output to output buffer
              * @note make sure to add the ending \\n
@@ -69,7 +77,7 @@ namespace myhttp
             sockaddr_in getNetInfo() const noexcept;
 
             /** get client's fd */
-            int getFd() const noexcept;
+            int fd() const noexcept;
 
             friend std::ostream& operator<<(std::ostream& out, const Client& client);
         private:
@@ -82,6 +90,13 @@ namespace myhttp
 
             /** output buffer */
             std::string _outBuffer;
+
+            /** input buffer
+             * @note the input buffer should be used to buffer incomplete commands
+             * @note so when you receive something from the client, the real input of the client is:
+             * @note _inBuffer + received text
+             */
+            std::string _inBuffer;
 
             /** activates client's pollout if there is a complete output
              * @note a complete output is any output ending by \\n

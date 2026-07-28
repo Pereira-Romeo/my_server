@@ -85,8 +85,8 @@ void Server::run()
             n -= sinHandler();
         if (n > 0 && _run)
             n -= listenSocketHandler();
-        // if (n > 0 && _run)
-        //     n -= socketsHandler(n);
+        if (n > 0 && _run)
+            n -= socketsHandler(n);
     }
 }
 
