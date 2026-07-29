@@ -164,5 +164,14 @@ namespace myhttp
              * @note - fd => get info about the corresponding client
              */
             int clientCmd(std::deque<std::string_view>& args);
+
+            /** send command
+             * @param arg rest of the line
+             * @note needs all in order
+             * @note available args:
+             * @note - fd => get info about the corresponding client
+             * @note - text => text to send
+             */
+            int sendCmd(std::deque<std::string_view>& args);
     };
 } // namespace myhttp

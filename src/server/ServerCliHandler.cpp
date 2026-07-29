@@ -64,7 +64,8 @@ int Server::sinHandler() noexcept
             {"status", {[this](std::deque<std::string_view>&) -> int {std::cout << *this << std::endl; return 0;}, "get information about the server's state."}},
             {"reload", {[this](std::deque<std::string_view>&) -> int {std::cout << "not implemented yet" << std::endl; return 0;}, "reload server's config file."}},
             {"list", {[this](std::deque<std::string_view>& args) -> int {return this->listCmd(args);}, "list something (clients)."}},
-            {"client", {[this](std::deque<std::string_view>& args) -> int {return this->clientCmd(args);}, "get information about one or more clients."}}
+            {"client", {[this](std::deque<std::string_view>& args) -> int {return this->clientCmd(args);}, "get information about one or more clients."}},
+            {"send", {[this](std::deque<std::string_view>& args) -> int {return this->sendCmd(args);}, "send information to a client."}}
             //command to hangup on specific clients (through fd)? (if fd index in pfds < 3 refuse the command) (flag to chose not to notify the client that we're hanging up ? add a bool markedForTermination so sending a string checks this and if true hangs up)
         };
 
@@ -143,6 +144,26 @@ int Server::clientCmd(std::deque<std::string_view>& args)
         }
         std::cout << std::endl;
     }
+    return 0;
+}
+
+int Server::sendCmd(std::deque<std::string_view>& args)
+{
+    if (args.size() != 2) {
+        std::cout << "send: need 2 arguments, must be a client's fd (int) followed by the text to send." << std::endl;
+        return 1;
+    }
+
+    int fd = 0;
+    auto result = std::from_chars(args[0].data(), args[0].data() + args[0].size(), fd);
+    if (result.ec != std::errc{} || result.ptr != args[0].data() + args[0].size()) {
+        std::cout << "client: argument '" << args[0] << "' is not a valid client fd." << "\n";
+    } else if (_clients.find(fd) != _clients.end()) {
+        _clients.at(fd).addOutput(static_cast<std::string>(args[1]));
+    } else {
+        std::cout << "client: " << args[0] << " is not a client's fd." << "\n";
+    }
+    std::cout << std::endl;
     return 0;
 }
 
