@@ -45,7 +45,7 @@ namespace myhttp
 //================= cli interface ================================//
 
 typedef struct cliCmd_s {
-    std::function<int (std::deque<std::string_view>)> func;
+    std::function<int (std::deque<std::string_view>&)> func;
     std::string description;
 } cliCmd_t;
 
@@ -61,10 +61,10 @@ int Server::sinHandler() noexcept
          * @note std::less<> allows comparisons with string_view, just look up "heterogeneous look up in containers c++"
          */
         static const std::map<std::string, cliCmd_t, std::less<>> cmds = {
-            {"status", {[this](std::deque<std::string_view>) -> int {std::cout << *this << std::endl; return 0;}, "get information about the server's state."}},
-            {"reload", {[this](std::deque<std::string_view>) -> int {std::cout << "not implemented yet" << std::endl; return 0;}, "reload server's config file."}},
-            {"list", {[this](std::deque<std::string_view> args) -> int {return this->listCmd(args);}, "list something (clients)."}},
-            {"client", {[this](std::deque<std::string_view> args) -> int {return this->clientCmd(args);}, "get information about one or more clients."}}
+            {"status", {[this](std::deque<std::string_view>&) -> int {std::cout << *this << std::endl; return 0;}, "get information about the server's state."}},
+            {"reload", {[this](std::deque<std::string_view>&) -> int {std::cout << "not implemented yet" << std::endl; return 0;}, "reload server's config file."}},
+            {"list", {[this](std::deque<std::string_view>& args) -> int {return this->listCmd(args);}, "list something (clients)."}},
+            {"client", {[this](std::deque<std::string_view>& args) -> int {return this->clientCmd(args);}, "get information about one or more clients."}}
             //command to hangup on specific clients (through fd)? (if fd index in pfds < 3 refuse the command) (flag to chose not to notify the client that we're hanging up ? add a bool markedForTermination so sending a string checks this and if true hangs up)
         };
 
@@ -104,7 +104,7 @@ int Server::sinHandler() noexcept
 
 //================= cli commands =================================//
 
-int Server::listCmd(std::deque<std::string_view> args)
+int Server::listCmd(std::deque<std::string_view>& args)
 {
     if (args.size() < 1) {
         std::cout << "list: need atleast 1 argument, can be 'client'." << std::endl;
@@ -124,7 +124,7 @@ int Server::listCmd(std::deque<std::string_view> args)
     return 0;
 }
 
-int Server::clientCmd(std::deque<std::string_view> args)
+int Server::clientCmd(std::deque<std::string_view>& args)
 {
     if (args.size() < 1) {
         std::cout << "client: need atleast 1 argument, can be a client's fd (int)." << std::endl;

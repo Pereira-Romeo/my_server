@@ -155,7 +155,7 @@ namespace myhttp
              * @note available args:
              * @note - clients (or clients) = list clients
              */
-            int listCmd(std::deque<std::string_view> args);
+            int listCmd(std::deque<std::string_view>& args);
 
             /** client command
              * @param arg rest of the line
@@ -163,6 +163,6 @@ namespace myhttp
              * @note available args:
              * @note - fd => get info about the corresponding client
              */
-            int clientCmd(std::deque<std::string_view> args);
+            int clientCmd(std::deque<std::string_view>& args);
     };
 } // namespace myhttp
