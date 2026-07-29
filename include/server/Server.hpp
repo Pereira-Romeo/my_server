@@ -18,6 +18,7 @@
 #include <map>
 #include <iomanip>
 #include <deque>
+#include <charconv>
 
 //signal handling
 #include <signal.h>
@@ -150,7 +151,18 @@ namespace myhttp
 
             /** list command
              * @param arg rest of the line
+             * @note needs atleast one
+             * @note available args:
+             * @note - clients (or clients) = list clients
              */
-            int listCmd(std::deque<std::string> args);
+            int listCmd(std::deque<std::string_view> args);
+
+            /** client command
+             * @param arg rest of the line
+             * @note needs atleast one
+             * @note available args:
+             * @note - fd => get info about the corresponding client
+             */
+            int clientCmd(std::deque<std::string_view> args);
     };
 } // namespace myhttp
