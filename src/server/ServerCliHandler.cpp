@@ -82,7 +82,7 @@ int Server::sinHandler() noexcept
 
         if (cmd == "help") {
             for (auto& _cmd : cmds) {
-                std::cout << CSBOLD << std::left << std::setw(12) << _cmd.first << std::setw(0) << CSRESET << _cmd.second.description << "\n";
+                std::cout << "  " CSBOLD << std::left << std::setw(12) << _cmd.first << std::setw(0) << CSRESET << _cmd.second.description << "\n";
             }
             std::cout << std::endl;
         } else if (cmd.size() > 0) {
