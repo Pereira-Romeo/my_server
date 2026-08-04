@@ -24,9 +24,8 @@
 #include <signal.h>
 #include <sys/signalfd.h>
 
-//server's config file
-#define CONFIG_FILE "./config/server.config"
-
+//server config
+#include "./Config.hpp"
 
 namespace myhttp
 {
@@ -56,6 +55,9 @@ namespace myhttp
 
             /** Server network info */
             sockaddr_in _addr;
+
+            /** Server config */
+            config_t conf;
 
             /** list of pfd
              * [0] is the signal fd
