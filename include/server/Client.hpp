@@ -6,6 +6,7 @@
 */
 
 #pragma once
+#include "Basics.hpp"
 #include "./ClientType.hpp"
 #include "Error.hpp"
 
