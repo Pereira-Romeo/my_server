@@ -10,7 +10,7 @@
 namespace myhttp
 {
 
-enum class code {
+enum class code { // : uint64_t or something, don't foget to add later
     OK = 200, //OK
     BadReq = 400, //Bad Request
     Forbid = 403, //Forbidden
