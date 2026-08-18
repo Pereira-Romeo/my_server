@@ -1,13 +1,13 @@
 /*
 ** Deb PROJECT, 2026
-** myhttp
+** myServer
 ** File description:
 ** Client
 */
 
 #include "server/Client.hpp"
 
-namespace myhttp
+namespace my
 {
 //================= Exceptions ===================================//
 
@@ -106,7 +106,7 @@ std::ostream& operator<<(std::ostream& out, const myhttp::Client& client)
     return out;
 }
 
-} // namespace myhttp
+} // namespace my
 
 std::ostream& operator<<(std::ostream& out, const sockaddr_in& addr)
 {

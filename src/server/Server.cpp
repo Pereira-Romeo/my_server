@@ -1,6 +1,6 @@
 /*
 ** Deb PROJECT, 2026
-** myhttp
+** myServer
 ** File description:
 ** Server
 */
@@ -8,7 +8,7 @@
 #include "server/Server.hpp"
 #include "ColorsShortcut.hpp"
 
-namespace myhttp
+namespace my
 {
 //================= Exceptions ===================================//
 
@@ -272,4 +272,4 @@ std::ostream& operator<<(std::ostream& out, const myhttp::Server& server)
     return out;
 }
 
-} // namespace myhttp
+} // namespace my

@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2026
-** myhttp
+** myServer
 ** File description:
 ** ServerSocketHandler
 */
@@ -8,7 +8,7 @@
 #include "server/Server.hpp"
 #include "ColorsShortcut.hpp"
 
-namespace myhttp
+namespace my
 {
 
 int Server::socketsHandler(int n) noexcept
@@ -66,6 +66,9 @@ void Server::clientPollin(size_t& ci, Client& client)
 
     std::cout << "    Client " << client << " sent '" << in << "'." << "\n";
 
+
+    //client.handleInput()
+
     // //deal with commands until none remaining
     // while (in.size() > 0) {
     //     std::string nextCmd;
@@ -107,4 +110,4 @@ void Server::clientPollout(size_t& ci, Client& client)
     }
 }
 
-} // namespace myhttp
+} // namespace my

@@ -9,7 +9,7 @@
 #include <cstdint>
 #include <iostream>
 
-namespace myhttp
+namespace my
 {
     /** enum precising a client's type
      * You should modify this enum to you heart's content (just don't remove none or count)
@@ -28,4 +28,4 @@ namespace myhttp
     };
 
     std::ostream& operator<<(std::ostream& out, const ClientType& type);
-} // namespace myhttp
+} // namespace my

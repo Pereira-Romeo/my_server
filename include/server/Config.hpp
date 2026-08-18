@@ -1,6 +1,6 @@
 /*
 ** Deb PROJECT, 2026
-** myhttp
+** myServer
 ** File description:
 ** Server Config
 */
@@ -13,7 +13,7 @@
 #define DEFAULT_CONFIG_PATH "./config/server.conf"
 
 
-namespace myhttp
+namespace my
 {
     /** Server config
      * should be filled through the config file
@@ -28,4 +28,4 @@ namespace myhttp
         //hosts with custom path for URIs, "host" = "path"
         std::deque<std::string> hosts;
     } config_t;
-} // namespace myhttp
+} // namespace my

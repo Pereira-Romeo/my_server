@@ -41,4 +41,4 @@ namespace my {
             int _val;
             int __errno;
     };
-}
+} // namespace my

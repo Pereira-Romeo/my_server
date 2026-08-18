@@ -1,6 +1,6 @@
 /*
 ** Deb PROJECT, 2026
-** myhttp
+** myServer
 ** File description:
 ** Client
 */
@@ -16,7 +16,7 @@
 #include <netinet/in.h> //sockaddr_in struct
 #include <arpa/inet.h>  //print network info
 
-namespace myhttp
+namespace my
 {
     /** Client class used in the server
      */
@@ -33,6 +33,8 @@ namespace myhttp
             /** client's type */
             ClientType type = ClientType::none;
 
+
+            //===== client input handling ========================//
 
             //===== buffer management ============================//
 
@@ -104,6 +106,6 @@ namespace myhttp
              */
             void polloutActivator();
     };
-} // namespace myhttp
+} // namespace my
 
 std::ostream& operator<<(std::ostream& out, const sockaddr_in& addr);

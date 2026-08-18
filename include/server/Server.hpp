@@ -1,6 +1,6 @@
 /*
 ** Deb PROJECT, 2026
-** myhttp
+** myServer
 ** File description:
 ** Server
 */
@@ -27,7 +27,7 @@
 //server config
 #include "./Config.hpp"
 
-namespace myhttp
+namespace my
 {
     class Server {
         public:
@@ -176,4 +176,4 @@ namespace myhttp
              */
             int sendCmd(std::deque<std::string_view>& args);
     };
-} // namespace myhttp
+} // namespace my

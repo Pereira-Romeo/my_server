@@ -1,6 +1,6 @@
 /*
 ** Deb PROJECT, 2026
-** myhttp
+** myServer
 ** File description:
 ** ServerCliHandler
 */
@@ -40,7 +40,7 @@ std::deque<std::string_view> tokenize(std::string_view line)
     return tokens;
 }
 
-namespace myhttp
+namespace my
 {
 //================= cli interface ================================//
 
@@ -168,4 +168,4 @@ int Server::sendCmd(std::deque<std::string_view>& args)
 }
 
 
-} // namespace myhttp
+} // namespace my

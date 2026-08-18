@@ -1,13 +1,13 @@
 /*
 ** Deb PROJECT, 2026
-** myhttp
+** myServer
 ** File description:
 ** ClientType
 */
 
 #include "server/ClientType.hpp"
 
-namespace myhttp
+namespace my
 {
 std::ostream& operator<<(std::ostream& out, const ClientType& type)
 {
@@ -19,4 +19,4 @@ std::ostream& operator<<(std::ostream& out, const ClientType& type)
     out << _toStr[(uint8_t) type];
     return out;
 }
-} // namespace myhttp
+} // namespace my

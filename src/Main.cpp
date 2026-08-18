@@ -1,6 +1,6 @@
 /*
 ** Deb PROJECT, 2026
-** myhttp
+** myServer
 ** File description:
 ** Main
 */
@@ -36,7 +36,7 @@ int main(int ac, char **av)
         // args.tryThrowUnrecognized();
 
         //main
-        myhttp::Server server(av[1]);
+        my::Server server(av[1]);
         server.run();
         return 0;
     } catch (my::Error& e) {
