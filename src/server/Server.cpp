@@ -61,12 +61,12 @@ Server::Server(const std::string& port)
     if (listen(listenSocket.fd, 10) == -1)
         throw my::Error(std::ostringstream("Couldn't setup server for listening") << _addr << ".", true);
 
-    std::cout << "Server " << *this << " done creating." << std::endl;
+    std::cout << CSTS << " " CSINFOL "Server " << *this << " done creating." << std::endl;
 }
 
 Server::~Server()
 {
-    std::cout << CSWARNL "Shutting down server..." << std::endl;
+    std::cout << CSTS << " " CSWARNL "Shutting down server..." << std::endl;
     for (pollfd pfd : _pfds) {
         close(pfd.fd);
     }
@@ -261,7 +261,7 @@ int Server::readAll(int fd, std::string& buf)
 
 //================= operators ====================================//
 
-std::ostream& operator<<(std::ostream& out, const myhttp::Server& server)
+std::ostream& operator<<(std::ostream& out, const my::Server& server)
 {
     out << "{"
     << &server << ", "

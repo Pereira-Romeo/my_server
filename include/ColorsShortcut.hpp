@@ -6,6 +6,7 @@
 */
 
 #pragma once
+#include <chrono>
 
 #define CSBOLD "\033[1m" //bold text
 #define CSPURPLE "\033[38;5;165m" //sexiest purple known to man
@@ -29,3 +30,19 @@
 #define CSWARNL CSWARN "WARN" CSRB ": " CSRESET //WARN: (in colors) used to display warnings / recovered errors
 #define CSERRL CSERR "ERR" CSRB ": " CSRESET //ERR: (in colors) used to display unrecoverale errors (doesn't necessarly mean program wide fatal error)
 #define CSFATERR CSERR "FATAL ERROR" CSRB ": " CSRESET //FATAL ERROR: (in colors) used to display unrecoverale, program wide errors
+
+inline std::string timestamp() {
+    auto now = std::chrono::system_clock::now();
+    auto time = std::chrono::system_clock::to_time_t(now);
+    auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()) % 1000;
+
+    std::ostringstream oss;
+    oss << '['
+    << std::put_time(std::localtime(&time), "%H:%M:%S")
+    << '.' << std::setfill('0') << std::setw(3) << ms.count()
+    << ']';
+  return oss.str();
+}
+
+#define CSTS timestamp() //TIME STAMP: [HH:MM:SS.MS0]
+

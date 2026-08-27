@@ -95,7 +95,7 @@ int Client::fd() const noexcept
 
 //================= operators ====================================//
 
-std::ostream& operator<<(std::ostream& out, const myhttp::Client& client)
+std::ostream& operator<<(std::ostream& out, const my::Client& client)
 {
     out << "{"
     << &client << ", "

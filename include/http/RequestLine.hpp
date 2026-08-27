@@ -26,5 +26,18 @@ typedef struct status_s {//idk what goes in there yet
     std::string codeDesc; //code description like "OK" for 200
 } status_t;
 
+/** only really used */
+class requestLine {
+    public:
+
+    private:
+        /** Get, PUT, QUERY... */
+        std::string_view _method;
+        /** URI */
+        std::string_view _path;
+        /** HTTP/1.1 */
+        std::string_view _version;
+};
+
 } // namespace myhttp
 

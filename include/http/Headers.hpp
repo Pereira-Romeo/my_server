@@ -36,5 +36,15 @@ typedef struct http_message_s { //replace response_t with that in #9
     bool ready; //true if response ready to send (once this is set to true, before sending it should automaticly look at the size of body and add field `Content-Length: body.size()`)
 } http_mess_t;
 
+class Header {
+    public:
+
+    private:
+        /** start line of the header,
+         * depending on request or response, should look something like:
+         * "METHOD /path HTTP/version" or "HTTP/version code description" respectively
+        */
+        StartLine _sl;
+};
 
 } // namespace myhttp
